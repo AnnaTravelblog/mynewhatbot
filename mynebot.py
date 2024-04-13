@@ -9,7 +9,7 @@ import time
 
 TOKEN = '6791148515:AAGKmXAd3v3SpRsCRXyCG0emJk5F1SkF57s'
 OPENWEATHERMAP_API_KEY = 'f98028a3cd35a770ee7e30d447f45301'
-
+TRIPADVISOR_API_KEY = 'your_tripadvisor_api_key'
 BASE_URL = f'https://api.telegram.org/bot{TOKEN}/'
 WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather?'
 
@@ -22,7 +22,9 @@ GREETINGS = [
 ]
 
 DESTINATIONS = {
-    "париж": "Париж - прекрасный город! Обязательно посети Эйфелеву башню и Лувр. Куда еще?",
+    "париж": "Париж - прекрасный город! Обязательно посети Эйфелеву башню и Лувр. Куда еще?"
+
+             ,
     "токио": "Токио - удивительный город! Не пропусти Цукадзи и Сенсодзи. Куда еще?",
     "рим": "Рим - великолепный город! Посети Колизей и Ватикан.",
 
@@ -135,7 +137,8 @@ def handle_message(update: Update, context: CallbackContext) -> None:
         # После 4 секунд спросим, может еще посмотрим другой город
         time.sleep(4)
         send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город?")
-
+    elif "посоветуй" in text or "а куда лучше?" in text:
+        send_message(update.message.chat_id, " Я думаю Рим или София тебе точно подойдет. Сингапур, кстати тоже не плохой вариаент")
     else:
         send_message(update.message.chat_id, "Я не знаю такого места. Может быть, выберем что-то другое? Куда поедем?")
 

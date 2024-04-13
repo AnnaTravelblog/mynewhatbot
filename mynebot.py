@@ -119,6 +119,7 @@ DESTINATIONS = {
 
 def handle_message(update: Update, context: CallbackContext) -> None:
     text = update.message.text.lower()
+    aviasales_url = 'https://www.aviasales.ru/'
     if "привет" in text or "здравствуй" in text:
         send_message(update.message.chat_id, "И тебе привет, добрый человек! В какой город едем?")
     elif text in DESTINATIONS:
@@ -133,14 +134,18 @@ def handle_message(update: Update, context: CallbackContext) -> None:
         # После 2 секунд спросим, может еще посмотрим другой город
         # Добавим обработку, чтобы бот говорил "Обращайся ко мне чаще, мой любимый путешественник!"
     elif "сейчас подумаю" in text or "сейчас" in text:
-        send_message(update.message.chat_id, " Я жду, Обращайся ко мне чаще, мой любимый путешественник!")
-        # После 4 секунд спросим, может еще посмотрим другой город
+        send_message(update.message.chat_id, "Я жду, Обращайся ко мне чаще, мой любимый путешественник!")
         time.sleep(4)
-        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город?")
+        message = "Может, еще посмотрим какой-то другой город?\n\nХочешь посмотреть авиабилеты? [Да]({})".format(
+            aviasales_url)
+        send_message(update.message.chat_id, message)
     elif "посоветуй" in text or "а куда лучше?" in text:
-        send_message(update.message.chat_id, " Я думаю Рим или София тебе точно подойдет. Сингапур, кстати тоже не плохой вариаент")
+        send_message(update.message.chat_id, " Я думаю Рим или София тебе точно подойдет. Сингапур, кстати тоже не плохой вариант.\n\n Хочешь посмотреть билеты?")
     else:
-        send_message(update.message.chat_id, "Я не знаю такого места. Может быть, выберем что-то другое? Куда поедем?")
+
+        message = " Куда поедем?\n\nХочешь посмотреть авиабилеты? [Да]({})".format(
+            aviasales_url)
+        send_message(update.message.chat_id, message)
 
 def get_weather_info(city: str) -> str:
     params = {'q': city, 'appid': OPENWEATHERMAP_API_KEY, 'units': 'metric', 'lang': 'ru'}

@@ -113,18 +113,21 @@ DESTINATIONS = {
     "венеция":
          "Венеция - город на воде! Посети площадь Сан-Марко и остров Мурано."}
 
+
 def handle_message(update: Update, context: CallbackContext) -> None:
     text = update.message.text.lower()
-    destination = DESTINATIONS.get(text)
-    if destination:
+    if "привет" in text or "здравствуй" in text:
+        send_message(update.message.chat_id, "И тебе привет, добрый человек! В какой город едем?")
+    elif text in DESTINATIONS:
         weather_info = get_weather_info(text)
-        send_message(update.message.chat_id, f"{destination}\n\n{weather_info}")
+        send_message(update.message.chat_id, f"{DESTINATIONS[text]}\n\n{weather_info}")
     elif "спасибо" in text:
-        send_message(update.message.chat_id, "Пожалуйста!")
+        send_message(update.message.chat_id, "Пожалуйста, мой любимый путешественник! Куда еще?")
     elif "всегда пожалуйста" in text:
         send_message(update.message.chat_id, "Рад помочь!")
+
     else:
-        send_message(update.message.chat_id, "Я не знаю такого места. Может быть, выбери что-то другое?")
+        send_message(update.message.chat_id, "Я не знаю такого места. Может быть, выберем что-то другое? Куда поедем?")
 
 def get_weather_info(city: str) -> str:
     params = {'q': city, 'appid': OPENWEATHERMAP_API_KEY, 'units': 'metric', 'lang': 'ru'}

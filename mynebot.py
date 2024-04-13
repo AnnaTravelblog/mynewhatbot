@@ -128,9 +128,9 @@ def handle_message(update: Update, context: CallbackContext) -> None:
     elif "спасибо" in text:
         send_message(update.message.chat_id, "Пожалуйста, мой любимый путешественник! Куда еще?")
         time.sleep(4)
-        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город?")
-    elif "с удовольствием" in text:
-        send_message(update.message.chat_id, "Рад помочь!")
+        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город, или посмотрим билеты?")
+    elif " да" in text:
+        send_message(update.message.chat_id, "Рад помочь!").format( aviasales_url)
         # После 2 секунд спросим, может еще посмотрим другой город
         # Добавим обработку, чтобы бот говорил "Обращайся ко мне чаще, мой любимый путешественник!"
     elif "сейчас подумаю" in text or "сейчас" in text:

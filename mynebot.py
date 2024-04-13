@@ -4,6 +4,7 @@ from telegram.ext import CallbackContext
 import os
 import random
 import requests
+import time
 
 
 TOKEN = '6791148515:AAGKmXAd3v3SpRsCRXyCG0emJk5F1SkF57s'
@@ -21,8 +22,8 @@ GREETINGS = [
 ]
 
 DESTINATIONS = {
-    "париж": "Париж - прекрасный город! Обязательно посети Эйфелеву башню и Лувр.",
-    "токио": "Токио - удивительный город! Не пропусти Цукадзи и Сенсодзи.",
+    "париж": "Париж - прекрасный город! Обязательно посети Эйфелеву башню и Лувр. Куда еще?",
+    "токио": "Токио - удивительный город! Не пропусти Цукадзи и Сенсодзи. Куда еще?",
     "рим": "Рим - великолепный город! Посети Колизей и Ватикан.",
 
     "лондон": "Лондон - столица Великобритании! Посети Биг Бен и Британский музей.",
@@ -123,8 +124,17 @@ def handle_message(update: Update, context: CallbackContext) -> None:
         send_message(update.message.chat_id, f"{DESTINATIONS[text]}\n\n{weather_info}")
     elif "спасибо" in text:
         send_message(update.message.chat_id, "Пожалуйста, мой любимый путешественник! Куда еще?")
-    elif "всегда пожалуйста" in text:
+        time.sleep(4)
+        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город?")
+    elif "с удовольствием" in text:
         send_message(update.message.chat_id, "Рад помочь!")
+        # После 2 секунд спросим, может еще посмотрим другой город
+        # Добавим обработку, чтобы бот говорил "Обращайся ко мне чаще, мой любимый путешественник!"
+    elif "сейчас подумаю" in text or "сейчас" in text:
+        send_message(update.message.chat_id, " Я жду, Обращайся ко мне чаще, мой любимый путешественник!")
+        # После 4 секунд спросим, может еще посмотрим другой город
+        time.sleep(4)
+        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город?")
 
     else:
         send_message(update.message.chat_id, "Я не знаю такого места. Может быть, выберем что-то другое? Куда поедем?")

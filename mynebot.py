@@ -116,35 +116,34 @@ DESTINATIONS = {
     "венеция":
          "Венеция - город на воде! Посети площадь Сан-Марко и остров Мурано."}
 
-
 def handle_message(update: Update, context: CallbackContext) -> None:
     text = update.message.text.lower()
     aviasales_url = 'https://www.aviasales.ru/'
+
     if "привет" in text or "здравствуй" in text:
         send_message(update.message.chat_id, "И тебе привет, добрый человек! В какой город едем?")
     elif text in DESTINATIONS:
         weather_info = get_weather_info(text)
         send_message(update.message.chat_id, f"{DESTINATIONS[text]}\n\n{weather_info}")
+        time.sleep(4)
+        send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город, или посмотрим билеты?")
     elif "спасибо" in text:
         send_message(update.message.chat_id, "Пожалуйста, мой любимый путешественник! Куда еще?")
         time.sleep(4)
         send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город, или посмотрим билеты?")
-    elif " да" in text:
-        send_message(update.message.chat_id, "Рад помочь!").format( aviasales_url)
-        # После 2 секунд спросим, может еще посмотрим другой город
-        # Добавим обработку, чтобы бот говорил "Обращайся ко мне чаще, мой любимый путешественник!"
+    elif "да" in text:
+        message = "Рад помочь! [Жми здесь]({})".format(aviasales_url)
+        send_message(update.message.chat_id, message)
+        # После ответа можете добавить дополнительную логику
     elif "сейчас подумаю" in text or "сейчас" in text:
-        send_message(update.message.chat_id, "Я жду, Обращайся ко мне чаще, мой любимый путешественник!")
+        send_message(update.message.chat_id, "Я жду, обращайся ко мне чаще, мой любимый путешественник!")
         time.sleep(4)
-        message = "Может, еще посмотрим какой-то другой город?\n\nХочешь посмотреть авиабилеты? [Да]({})".format(
-            aviasales_url)
+        message = "Может, еще посмотрим какой-то другой город?\n\n[Хочешь посмотреть авиабилеты?]({})".format(aviasales_url)
         send_message(update.message.chat_id, message)
     elif "посоветуй" in text or "а куда лучше?" in text:
-        send_message(update.message.chat_id, " Я думаю Рим или София тебе точно подойдет. Сингапур, кстати тоже не плохой вариант.\n\n Хочешь посмотреть билеты?")
+        send_message(update.message.chat_id, "Я думаю Рим или София тебе точно подойдет. Сингапур, кстати тоже не плохой вариант.\n\n[Хочешь посмотреть билеты?]({})".format(aviasales_url))
     else:
-
-        message = " Куда поедем?\n\nХочешь посмотреть авиабилеты? [Да]({})".format(
-            aviasales_url)
+        message = "Куда поедем?\n\n[Хочешь посмотреть авиабилеты?]({})".format(aviasales_url)
         send_message(update.message.chat_id, message)
 
 def get_weather_info(city: str) -> str:

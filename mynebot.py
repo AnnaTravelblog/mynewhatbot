@@ -137,7 +137,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
         # После ответа можете добавить дополнительную логику
     elif "сейчас подумаю" in text or "сейчас" in text:
         send_message(update.message.chat_id, "Я жду, обращайся ко мне чаще, мой любимый путешественник!")
-        time.sleep(4)
+        time.sleep(10)
         message = "Может, еще посмотрим какой-то другой город?\n\n[Хочешь посмотреть авиабилеты?]({})".format(aviasales_url)
         send_message(update.message.chat_id, message)
     elif "посоветуй" in text or "а куда лучше?" in text:

@@ -125,7 +125,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
     elif text in DESTINATIONS:
         weather_info = get_weather_info(text)
         send_message(update.message.chat_id, f"{DESTINATIONS[text]}\n\n{weather_info}")
-        time.sleep(4)
+        time.sleep(10)
         send_message(update.message.chat_id, "Может, еще посмотрим какой-то другой город, или посмотрим билеты?")
     elif "спасибо" in text:
         send_message(update.message.chat_id, "Пожалуйста, мой любимый путешественник! Куда еще?")
